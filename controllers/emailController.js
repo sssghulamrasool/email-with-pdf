@@ -34,7 +34,7 @@ exports.emailSent = async (req, res) => {
     res.status(201).json({
       status: "success",
       message: "success fully sent email",
-      // data,
+      data,
     });
   } catch (error) {
     res.status(500).json({

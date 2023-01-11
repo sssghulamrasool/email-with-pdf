@@ -2,10 +2,10 @@ const nodemailer = require("nodemailer");
 const EmailModel = require("../model/emailModel");
 exports.emailSent = async (req, res) => {
   try {
-    const { order, email } = req.body;
+    const { order, email, name } = req.body;
     const data = await EmailModel.create({
       email: email,
-      name: req.body.nam,
+      name: name,
       phone: req.body.phone,
       order: order,
     });
@@ -22,8 +22,9 @@ exports.emailSent = async (req, res) => {
       to: email,
       subject: `Order # ${order}`,
       html: ` <h1>
-          Hello <br />
-          <a href="http://localhost:5555/pdf/order-284026345307074.pdf">
+      hello dear ${name}
+          Please Check Your Order detail <br />
+          <a href="https://dull-hare-culottes.cyclic.app/pdf/order-31562487416057104454444.pdf">
             Order Detail
           </a>
         </h1>`,
@@ -33,7 +34,7 @@ exports.emailSent = async (req, res) => {
     res.status(201).json({
       status: "success",
       message: "success fully sent email",
-      data,
+      // data,
     });
   } catch (error) {
     res.status(500).json({
